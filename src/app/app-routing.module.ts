@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import{ ListemployeeComponent}from './Employee/listemployee/listemployee.component';
 
 const routes: Routes = [
-  {path:'',component:ListemployeeComponent}
+  {path:'employee',component:ListemployeeComponent},
+  {path:'',redirectTo:'employee',pathMatch: 'full'}
 ];
 
 @NgModule({

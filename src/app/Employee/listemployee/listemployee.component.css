@@ -22,3 +22,9 @@
 .redClass{
     color: grey;
 }
+.hiddenClass{
+ display: none;
+}
+.ShowClass{
+display: inline ;
+}

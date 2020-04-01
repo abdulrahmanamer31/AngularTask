@@ -4,9 +4,9 @@
 </head>
 <body>
     <form [formGroup] ="employeeForm" > 
-        <p style="color: green;" class="fade in" *ngIf="showMyMessage"><span class="fas fa-check"></span>Employee Saved</p>
-        <p style="color: red;" class="fade in" *ngIf="showdeleteMessage"><span class="fas fa-check"></span>Employee Deleted</p>
-        <p style="color: blue;" class="fade in" *ngIf="showrowMyMessage"><span class="fas fa-check"></span>Row Added</p>
+        <p style="color: green;" class="fade in" [ngClass]="{hiddenClass: !(showMyMessage), ShowClass: showMyMessage}"><span class="fas fa-check"></span>Employee Saved</p>
+        <p style="color: red;" class="fade in" [ngClass]="{hiddenClass: !(showdeleteMessage), ShowClass: showdeleteMessage}"><span class="fas fa-check"></span>Employee Deleted</p>
+        <p style="color: blue;" class="fade in"  [ngClass]="{hiddenClass: !(showrowMyMessage), ShowClass: showrowMyMessage}"><span class="fas fa-check"></span>Row Added</p>
 
         <button type="button" (click)="importitem()" class="btn btn-primary pull-right">Add Row</button>
           <table class="table text-center" formArrayName="EmployeesData" >
@@ -32,16 +32,12 @@
     <tbody>
         <tr  *ngFor="let item of EmployeesData.controls ; let i = index ;" [formGroupName]="i">
     
-        <td class="ID"><label class="form-control"> {{item.controls.employeeID.value}} </label></td>
-            <td class="Name"> <div [ngClass]="{'has-error': item.get('employeeName').invalid && item.get('employeeName').touched }"> <input type="text" class="form-control"  formControlName="employeeName" >   <span class="help-block" *ngIf="item.get('employeeName').errors?.required && item.get('employeeName').touched">
-                Employee Name is required
-              </span>
+        <td class="ID"><label class="form-control" style="border: none;"> {{item.controls.employeeID.value}} </label></td>
+            <td class="Name"> <div [ngClass]="{'has-error': item.get('employeeName').invalid && item.get('employeeName').touched }"> <input type="text" class="form-control"  formControlName="employeeName" >  
             </div>
         </td>
-            <td class="Age" > <div [ngClass]="{'has-error': item.get('employeeAge').invalid && item.get('employeeAge').touched }"><input type="number" class="form-control" formControlName="employeeAge" > 
-                <span class="help-block" *ngIf="item.get('employeeAge').errors?.required && item.get('employeeAge').touched ">
-                    Employee Age is required > 0
-                  </span>
+            <td class="Age" > <div [ngClass]="{'has-error': (item.get('employeeAge').invalid && item.get('employeeAge').touched) || !(item.get('employeeAge').value > 0)  }"><input type="number" class="form-control" formControlName="employeeAge" > 
+            
                   </div>
             </td>
             <td class="CityName"> <div [ngClass]="{'has-error': item.get('CityName').invalid && item.get('CityName').touched }">
@@ -50,13 +46,10 @@
                        {{Cityitem.Name}}
                    </option>
                 </select> 
-                <span class="help-block" *ngIf="item.get('CityName').errors?.required && item.get('CityName').touched ">
-                    CityName is required
-                </span>
             </div>
             </td>
             <td class="SaveIcon "> 
-             <button [disabled]="this.item.invalid"  (click)="MoveToEdit(this.item)">   <span class="fas fa-save" [ngClass]="{greenClass: !this.item.invalid, redClass: this.item.invalid}"></span> 
+             <button [disabled]="(this.item.invalid || item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) || !(item.get('employeeAge').value > 0)  "  (click)="MoveToEdit(this.item)">   <span class="fas fa-save" [ngClass]="{greenClass: !(this.item.invalid|| item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) , redClass: (this.item.invalid|| item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) || !(item.get('employeeAge').value > 0)}"></span> 
              </button>
             </td> 
             <td class="RemoveIcon"> 

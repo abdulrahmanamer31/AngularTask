@@ -50,7 +50,7 @@ export class ListemployeeComponent implements OnInit {
       this.EmployeesData.push( this.fb.group({
         employeeID:[num,Validators.required],
         employeeName :['',Validators.required],
-        employeeAge: ['',Validators.required,Validators.min(0)],
+        employeeAge: ['',Validators.required],
         CityID: [''],
         CityName: ['',Validators.required],
         
@@ -65,11 +65,11 @@ export class ListemployeeComponent implements OnInit {
     this.EmployeesData=this.employeeForm.get('EmployeesData') as FormArray;
     this.employee.forEach(s=>{
       this.EmployeesData.push(this.fb.group({
-        employeeID :s.Id,
-        employeeName :s.Name,
-        employeeAge: s.Age,
-        CityID: s.City.id,
-        CityName: s.City.Name,
+        employeeID :[s.Id,Validators.required],
+        employeeName :[s.Name,Validators.required],
+        employeeAge: [s.Age,Validators.required],
+        CityID: [s.City.id,Validators.required],
+        CityName: [s.City.Name,Validators.required],
        }));
    });
   }
