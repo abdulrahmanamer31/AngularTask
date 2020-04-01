@@ -1,0 +1,74 @@
+<head>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/fontawesome.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/solid.min.css" rel="stylesheet" /> 
+</head>
+<body>
+    <form [formGroup] ="employeeForm" > 
+        <p style="color: green;" class="fade in" *ngIf="showMyMessage"><span class="fas fa-check"></span>Employee Saved</p>
+        <p style="color: red;" class="fade in" *ngIf="showdeleteMessage"><span class="fas fa-check"></span>Employee Deleted</p>
+        <p style="color: blue;" class="fade in" *ngIf="showrowMyMessage"><span class="fas fa-check"></span>Row Added</p>
+
+        <button type="button" (click)="importitem()" class="btn btn-primary pull-right">Add Row</button>
+          <table class="table text-center" formArrayName="EmployeesData" >
+    <tr>
+        <th class="text-center" >
+            ID
+        </th>
+        <th class="text-center" >
+            Name
+        </th>
+        <th class="text-center" >
+            Age 
+        </th>
+        <th class="text-center">
+            City
+        </th>
+        <th>
+        </th>
+        <th>
+        </th>
+
+    </tr>
+    <tbody>
+        <tr  *ngFor="let item of EmployeesData.controls ; let i = index ;" [formGroupName]="i">
+    
+        <td class="ID"><label class="form-control"> {{item.controls.employeeID.value}} </label></td>
+            <td class="Name"> <div [ngClass]="{'has-error': item.get('employeeName').invalid && item.get('employeeName').touched }"> <input type="text" class="form-control"  formControlName="employeeName" >   <span class="help-block" *ngIf="item.get('employeeName').errors?.required && item.get('employeeName').touched">
+                Employee Name is required
+              </span>
+            </div>
+        </td>
+            <td class="Age" > <div [ngClass]="{'has-error': item.get('employeeAge').invalid && item.get('employeeAge').touched }"><input type="number" class="form-control" formControlName="employeeAge" > 
+                <span class="help-block" *ngIf="item.get('employeeAge').errors?.required && item.get('employeeAge').touched ">
+                    Employee Age is required > 0
+                  </span>
+                  </div>
+            </td>
+            <td class="CityName"> <div [ngClass]="{'has-error': item.get('CityName').invalid && item.get('CityName').touched }">
+                <select class="form-control" formControlName="CityName"> 
+                   <option   *ngFor="let Cityitem of city ;let i = index;" [ngValue]="Cityitem.Name" >
+                       {{Cityitem.Name}}
+                   </option>
+                </select> 
+                <span class="help-block" *ngIf="item.get('CityName').errors?.required && item.get('CityName').touched ">
+                    CityName is required
+                </span>
+            </div>
+            </td>
+            <td class="SaveIcon "> 
+             <button [disabled]="this.item.invalid"  (click)="MoveToEdit(this.item)">   <span class="fas fa-save" [ngClass]="{greenClass: !this.item.invalid, redClass: this.item.invalid}"></span> 
+             </button>
+            </td> 
+            <td class="RemoveIcon"> 
+                <button (click)="Removeitem(i)" title="Delete Employee"> 
+                    <span class="fas fa-trash-alt" style="color:red;"></span> 
+                     
+                     </button>
+            </td> 
+        </tr>
+    </tbody>
+    </table>
+
+</form>
+
+</body>
