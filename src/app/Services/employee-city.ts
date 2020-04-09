@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Iemployee } from '../Models/iemployee';
 import{Icity} from '../Models/icity';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
@@ -7,13 +6,13 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class EmployeeServices {
-    baseUrl = 'http://localhost:3000/employee';
+export class CityServices {
+    baseUrl = 'http://localhost:3000/city';
     constructor(private httpClient: HttpClient) {
     }
 
-    getEmployees(): Observable<Iemployee[]> {
-        return this.httpClient.get<Iemployee[]>(this.baseUrl)
+    getCity(): Observable<Icity[]> {
+        return this.httpClient.get<Icity[]>(this.baseUrl)
             .pipe(catchError(this.handleError));
     }
 
@@ -26,13 +25,13 @@ export class EmployeeServices {
         return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
     }
 
-    getEmployee(id: number): Observable<Iemployee> {
-        return this.httpClient.get<Iemployee>(`${this.baseUrl}/${id}`)
+    getCityData(id: number): Observable<Icity> {
+        return this.httpClient.get<Icity>(`${this.baseUrl}/${id}`)
             .pipe(catchError(this.handleError));
     }
 
-    addEmployee(employee: Iemployee): Observable<Iemployee> {
-        return this.httpClient.post<Iemployee>(this.baseUrl, employee, {
+    addEmployee(city: Icity): Observable<Icity> {
+        return this.httpClient.post<Icity>(this.baseUrl, city, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
@@ -40,8 +39,8 @@ export class EmployeeServices {
         .pipe(catchError(this.handleError));
     }
 
-    updateEmployee(employee: Iemployee): Observable<void> {
-        return this.httpClient.put<void>(`${this.baseUrl}/${employee.id}`, employee, {
+    updateEmployee(city: Icity): Observable<void> {
+        return this.httpClient.put<void>(`${this.baseUrl}/${city.id}`, city, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })

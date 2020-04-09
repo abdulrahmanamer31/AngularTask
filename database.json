@@ -1,0 +1,58 @@
+{
+  "employee": [
+    {
+      "id": 1,
+      "Age": 9,
+      "Name": "bedo",
+      "City": {
+        "id": 1,
+        "Name": "Madagascar"
+      }
+    },
+    {
+      "id": 2,
+      "Age": 20,
+      "Name": "Mohamed",
+      "City": {
+        "id": 2,
+        "Name": "Cairo"
+      }
+    },
+    {
+      "id": 3,
+      "Age": 1,
+      "Name": "hi",
+      "City": {
+        "id": 3,
+        "Name": ""
+      }
+    },
+    {
+      "id": 4,
+      "Age": 5,
+      "Name": "d",
+      "City": {
+        "id": 1,
+        "Name": ""
+      }
+    }
+  ],
+  "city": [
+    {
+      "id": 1,
+      "Name": "Madagascar"
+    },
+    {
+      "id": 2,
+      "Name": "Cairo"
+    },
+    {
+      "id": 3,
+      "Name": "Somal"
+    },
+    {
+      "id": 4,
+      "Name": "Cotedivor"
+    }
+  ]
+}

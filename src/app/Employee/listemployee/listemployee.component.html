@@ -3,13 +3,13 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/solid.min.css" rel="stylesheet" /> 
 </head>
 <body>
-    <form [formGroup] ="employeeForm" > 
+    <form  > 
         <p style="color: green;" class="fade in" [ngClass]="{hiddenClass: !(showMyMessage), ShowClass: showMyMessage}"><span class="fas fa-check"></span>Employee Saved</p>
         <p style="color: red;" class="fade in" [ngClass]="{hiddenClass: !(showdeleteMessage), ShowClass: showdeleteMessage}"><span class="fas fa-check"></span>Employee Deleted</p>
         <p style="color: blue;" class="fade in"  [ngClass]="{hiddenClass: !(showrowMyMessage), ShowClass: showrowMyMessage}"><span class="fas fa-check"></span>Row Added</p>
 
         <button type="button" (click)="importitem()" class="btn btn-primary pull-right">Add Row</button>
-          <table class="table text-center" formArrayName="EmployeesData" >
+          <table class="table text-center" >
     <tr>
         <th class="text-center" >
             ID
@@ -29,8 +29,8 @@
         </th>
 
     </tr>
-    <tbody>
-        <tr  *ngFor="let item of EmployeesData.controls ; let i = index ;" [formGroupName]="i">
+    <tbody [formGroup]="item"  *ngFor="let item of EmployeesData.controls ; let i = index ;">
+        <tr (click)="this.showdetail(item.controls.employeeID.value)" >
     
         <td class="ID"><label class="form-control" style="border: none;"> {{item.controls.employeeID.value}} </label></td>
             <td class="Name"> <div [ngClass]="{'has-error': item.get('employeeName').invalid && item.get('employeeName').touched }"> <input type="text" class="form-control"  formControlName="employeeName" >  
@@ -40,24 +40,33 @@
             
                   </div>
             </td>
-            <td class="CityName"> <div [ngClass]="{'has-error': item.get('CityName').invalid && item.get('CityName').touched }">
-                <select class="form-control" formControlName="CityName"> 
-                   <option   *ngFor="let Cityitem of city ;let i = index;" [ngValue]="Cityitem.Name" >
+            <td class="CityName"> <div [ngClass]="{'has-error': item.get('CityID').invalid && item.get('CityID').touched }">
+                <select class="form-control" formControlName="CityID"> 
+                   <option   *ngFor="let Cityitem of City ;let i = index;" [ngValue]="Cityitem.id" >
                        {{Cityitem.Name}}
                    </option>
                 </select> 
             </div>
             </td>
             <td class="SaveIcon "> 
-             <button [disabled]="(this.item.invalid || item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) || !(item.get('employeeAge').value > 0)  "  (click)="MoveToEdit(this.item)">   <span class="fas fa-save" [ngClass]="{greenClass: !(this.item.invalid|| item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) , redClass: (this.item.invalid|| item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) || !(item.get('employeeAge').value > 0)}"></span> 
+             <button [disabled]="(this.item.invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) || !(item.get('employeeAge').value > 0)  "  (click)="MoveToEdit(this.item)">   <span class="fas fa-save" [ngClass]="{greenClass: !(this.item.invalid|| item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) , redClass: (this.item.invalid|| item.get('CityName').invalid || item.get('employeeName').invalid || item.get('employeeAge').invalid) || !(item.get('employeeAge').value > 0)}"></span> 
              </button>
             </td> 
             <td class="RemoveIcon"> 
-                <button (click)="Removeitem(i)" title="Delete Employee"> 
-                    <span class="fas fa-trash-alt" style="color:red;"></span> 
+                <button (click)="Removeitem(item.get('employeeID').value,i)" title="Delete Employee"> 
+                    <span class="fas fa-trash-alt" style="color:red; height: 26px;"></span> 
                      
                      </button>
-            </td> 
+            </td>
+        </tr>
+        
+        <tr  *ngIf="this.showinfo && ( this.ShowMoreinfo == item.controls.employeeID.value) &&!(item.controls.employeeID.value==0)  ">
+           <td colspan="6">
+            <app-employee-certain-data [EmployeeID]="item.controls.employeeID.value" >
+
+            </app-employee-certain-data>
+        </td>
+
         </tr>
     </tbody>
     </table>

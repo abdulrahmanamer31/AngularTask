@@ -18,9 +18,12 @@
 }
 .greenClass{
     color: green;
+    height: 26px;
 }
 .redClass{
     color: grey;
+    height: 26px;;
+
 }
 .hiddenClass{
  display: none;
