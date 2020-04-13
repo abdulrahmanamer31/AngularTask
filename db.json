@@ -3,7 +3,11 @@
     {
       "id": 1,
       "Age": 9,
-      "Name": "bedo",
+      "Name": [
+        [
+          "bedo"
+        ]
+      ],
       "City": {
         "id": 1,
         "Name": "Madagascar"
