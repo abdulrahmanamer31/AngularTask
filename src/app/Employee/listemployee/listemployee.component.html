@@ -33,7 +33,7 @@
         <tr (click)="this.showdetail(item.controls.employeeID.value)" >
     
         <td class="ID"><label class="form-control" style="border: none;"> {{item.controls.employeeID.value}} </label></td>
-            <td class="Name"> <div [ngClass]="{'has-error': item.get('employeeName').invalid && item.get('employeeName').touched }"> <input type="text" class="form-control"  formControlName="employeeName" >  
+            <td class="Name"> <div [ngClass]="{'has-error': item.get('employeeName').invalid  }"> <input type="text" class="form-control"  formControlName="employeeName" >  
             </div>
         </td>
             <td class="Age" > <div [ngClass]="{'has-error': (item.get('employeeAge').invalid && item.get('employeeAge').touched) || !(item.get('employeeAge').value > 0)  }"><input type="number" class="form-control" formControlName="employeeAge" > 
@@ -62,7 +62,7 @@
         
         <tr  *ngIf="this.showinfo && ( this.ShowMoreinfo == item.controls.employeeID.value) &&!(item.controls.employeeID.value==0)  ">
            <td colspan="6">
-            <app-employee-certain-data [EmployeeID]="item.controls.employeeID.value" >
+            <app-employee-certain-data [EmployeeID]="item.controls.employeeID.value" (Name)="GetNameValueChange($event,item)" >
 
             </app-employee-certain-data>
         </td>

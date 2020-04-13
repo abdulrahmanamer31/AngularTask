@@ -19,6 +19,7 @@ export class ListemployeeComponent implements OnInit {
   public showrowMyMessage = false;
   public showAddedMessage = false;
   public ShowMoreinfo :number ;
+  public NameData : string;
   Employee :Iemployee={
 id: undefined,
 Age:undefined,
@@ -154,5 +155,10 @@ this.showdeleteMessage=false;
    });
    }
    }
+ 
+  }
+  GetNameValueChange(valuesetter:string,item:any){
+    this.NameData=valuesetter;
+    item.patchValue({employeeName:valuesetter});
   }
 }
