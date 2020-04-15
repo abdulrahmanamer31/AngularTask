@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class CityServices {
-    baseUrl = 'http://localhost:3000/city';
+    baseUrl = 'https://my-json-server.typicode.com/abdulrahmanamer31/DataLoad/city';
     constructor(private httpClient: HttpClient) {
     }
 

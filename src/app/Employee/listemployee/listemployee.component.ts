@@ -20,6 +20,8 @@ export class ListemployeeComponent implements OnInit {
   public showAddedMessage = false;
   public ShowMoreinfo :number ;
   public NameData : string;
+  public Datatransfer : string;
+  
   Employee :Iemployee={
 id: undefined,
 Age:undefined,
@@ -34,7 +36,7 @@ City: {
 
   constructor(private fb : FormBuilder,
   private EmployeeService: EmployeeServices,
-  private CityService: CityServices)
+  private CityService: CityServices,)
   {}
   ngOnInit(): void {
    this.CityService.getCity().subscribe(
@@ -79,11 +81,17 @@ City: {
   }
     
 
-  showdetail(item:any){
+  showdetail(item:any, NameInitial :any){
     console.log(item);
     this.ShowMoreinfo=item;
    if( this.showinfo== false){
     this.showinfo=true;
+    if(this.Datatransfer==undefined){
+    this.Datatransfer=NameInitial;
+    }
+    else{
+
+    }
  }
    else{
      this.showinfo=false;
@@ -160,5 +168,11 @@ this.showdeleteMessage=false;
   GetNameValueChange(valuesetter:string,item:any){
     this.NameData=valuesetter;
     item.patchValue({employeeName:valuesetter});
+  }
+  setname(item:any) {
+    item.controls.employeeName.valueChanges.subscribe((data:any)=>{
+      this.Datatransfer=data;
+   });
+
   }
 }

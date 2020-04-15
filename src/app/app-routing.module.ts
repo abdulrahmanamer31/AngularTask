@@ -4,9 +4,9 @@ import{ ListemployeeComponent}from './Employee/listemployee/listemployee.compone
 import { EmployeeCertainDataComponent } from './Employee/employee-certain-data/employee-certain-data.component';
 
 const routes: Routes = [
-  {path:'',redirectTo:'employee',pathMatch: 'full'},
-  {path:'employee',component:ListemployeeComponent},
-  {path:'employeedata',component:EmployeeCertainDataComponent}
+  {path: '' ,redirectTo: '/employee' ,pathMatch: 'full'},
+  {path: 'employee',component: ListemployeeComponent},
+  {path: 'employeedata',component: EmployeeCertainDataComponent}
 
 ];
 

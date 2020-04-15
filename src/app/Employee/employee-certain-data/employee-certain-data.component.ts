@@ -11,6 +11,7 @@ import { Iemployee } from 'src/app/Models/iemployee';
 })
 export class EmployeeCertainDataComponent implements OnInit {
   @ Input() EmployeeID : number;
+  @Input() NameVariable:string;
   @ Output() Name = new EventEmitter<string>();
   constructor(private employeeservices:EmployeeServices,private City:CityServices,private fb : FormBuilder) { }
   employeesData= new FormGroup({
@@ -23,10 +24,9 @@ export class EmployeeCertainDataComponent implements OnInit {
   }); 
   ngOnInit(): void {
     
-    
     this.employeeservices.getEmployee(this.EmployeeID).subscribe((res:Iemployee)=>{
      let employee ={
-      employeeName: [res.Name],
+      employeeName: [this.NameVariable],
       employeeAge: [res.Age],
       employeeCityID:[res.City.id],
       employeeCityName: [undefined],
@@ -41,7 +41,9 @@ export class EmployeeCertainDataComponent implements OnInit {
       {
         this.Name.emit(data);
        });
- 
-  }
+       //this.employeesData.patchValue({'employeeName': this.NameVariable});  
 
-}
+     }
+    }
+  
+

@@ -31,3 +31,6 @@
 .ShowClass{
 display: inline ;
 }
+.iddecorator{
+    box-shadow: none;
+}
