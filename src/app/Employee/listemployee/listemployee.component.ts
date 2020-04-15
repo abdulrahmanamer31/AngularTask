@@ -90,7 +90,8 @@ City: {
     this.Datatransfer=NameInitial;
     }
     else{
-
+      this.Datatransfer=NameInitial;
+   
     }
  }
    else{
